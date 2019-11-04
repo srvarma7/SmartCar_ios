@@ -14,6 +14,8 @@
 		52A424A91E4F98A0009A49D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52A424A71E4F98A0009A49D4 /* Main.storyboard */; };
 		52A424AB1E4F98A0009A49D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52A424AA1E4F98A0009A49D4 /* Assets.xcassets */; };
 		52A424AE1E4F98A0009A49D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52A424AC1E4F98A0009A49D4 /* LaunchScreen.storyboard */; };
+		6DEFA85023702F74006FE48A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFA84F23702F74006FE48A /* HomeViewController.swift */; };
+		6DEFA8542370323B006FE48A /* bluecar.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DEFA8532370323B006FE48A /* bluecar.json */; };
 		8BA33A152ECD22B3A9EFAC26 /* Pods_OnboardingLottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56991DD74C2B0839FEDB499 /* Pods_OnboardingLottie.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 		52A424AA1E4F98A0009A49D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52A424AD1E4F98A0009A49D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52A424AF1E4F98A0009A49D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DEFA84F23702F74006FE48A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		6DEFA8532370323B006FE48A /* bluecar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bluecar.json; sourceTree = "<group>"; };
 		81D1218BB5393C68AF808A24 /* Pods-OnboardingLottie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnboardingLottie.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnboardingLottie/Pods-OnboardingLottie.debug.xcconfig"; sourceTree = "<group>"; };
 		D56991DD74C2B0839FEDB499 /* Pods_OnboardingLottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnboardingLottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6DA3BB8C2752A372C38B27 /* Pods-OnboardingLottie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnboardingLottie.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnboardingLottie/Pods-OnboardingLottie.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,8 +80,10 @@
 			children = (
 				5261D6B21E4FB39C009A4983 /* Walkthrough.aep */,
 				5261D6B01E4F9C16009A4983 /* tutorial.json */,
+				6DEFA8532370323B006FE48A /* bluecar.json */,
 				52A424A31E4F98A0009A49D4 /* AppDelegate.swift */,
 				52A424A51E4F98A0009A49D4 /* ViewController.swift */,
+				6DEFA84F23702F74006FE48A /* HomeViewController.swift */,
 				52A424A71E4F98A0009A49D4 /* Main.storyboard */,
 				52A424AA1E4F98A0009A49D4 /* Assets.xcassets */,
 				52A424AC1E4F98A0009A49D4 /* LaunchScreen.storyboard */,
@@ -162,6 +168,7 @@
 				52A424AE1E4F98A0009A49D4 /* LaunchScreen.storyboard in Resources */,
 				5261D6B11E4F9C16009A4983 /* tutorial.json in Resources */,
 				52A424AB1E4F98A0009A49D4 /* Assets.xcassets in Resources */,
+				6DEFA8542370323B006FE48A /* bluecar.json in Resources */,
 				52A424A91E4F98A0009A49D4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +230,7 @@
 			files = (
 				52A424A61E4F98A0009A49D4 /* ViewController.swift in Sources */,
 				52A424A41E4F98A0009A49D4 /* AppDelegate.swift in Sources */,
+				6DEFA85023702F74006FE48A /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +358,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianadvent.OnboardingLotties;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -364,6 +373,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.brianadvent.OnboardingLotties;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
