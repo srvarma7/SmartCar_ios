@@ -13,7 +13,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
     
-    let animationView = LAAnimationView.animationNamed("tutorial")
+    let animationView = LAAnimationView.animationNamed("bluecar")
     
     let stringArray = ["<- Swipe to begin", "Welcome to bed", "Don't forget to clean", "with water", "Then eat toast", "and go to work"]
     
@@ -24,6 +24,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         animationView?.contentMode = .scaleAspectFill
         
         animationView?.loopAnimation = true
+        animationView?.transform = CGAffineTransform(rotationAngle: -3.14/2)
         
         self.view.addSubview(animationView!)
         

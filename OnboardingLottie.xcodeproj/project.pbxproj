@@ -14,6 +14,25 @@
 		52A424A91E4F98A0009A49D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52A424A71E4F98A0009A49D4 /* Main.storyboard */; };
 		52A424AB1E4F98A0009A49D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52A424AA1E4F98A0009A49D4 /* Assets.xcassets */; };
 		52A424AE1E4F98A0009A49D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52A424AC1E4F98A0009A49D4 /* LaunchScreen.storyboard */; };
+		6DA29E5123703E6400F54743 /* padlock.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E5023703E6400F54743 /* padlock.json */; };
+		6DA29E572370418600F54743 /* bluelock.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E562370418600F54743 /* bluelock.json */; };
+		6DA29E5923713E2300F54743 /* arrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E5823713E2300F54743 /* arrow.json */; };
+		6DA29E5D237141C900F54743 /* radar.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E5A237141C800F54743 /* radar.json */; };
+		6DA29E5E237141C900F54743 /* bell.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E5B237141C900F54743 /* bell.json */; };
+		6DA29E5F237141C900F54743 /* card.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E5C237141C900F54743 /* card.json */; };
+		6DA29E632371485600F54743 /* CarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA29E622371485600F54743 /* CarViewController.swift */; };
+		6DA29E6823715E9E00F54743 /* bright.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E6623715E9E00F54743 /* bright.json */; };
+		6DA29E6923715E9E00F54743 /* dark.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E6723715E9E00F54743 /* dark.json */; };
+		6DA29E70237161AB00F54743 /* safe.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E6B237161AA00F54743 /* safe.json */; };
+		6DA29E72237161AB00F54743 /* caution.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E6D237161AA00F54743 /* caution.json */; };
+		6DA29E73237161AB00F54743 /* done.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E6E237161AB00F54743 /* done.json */; };
+		6DA29E74237161AB00F54743 /* tree.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E6F237161AB00F54743 /* tree.json */; };
+		6DA29E7623716F4000F54743 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA29E7523716F4000F54743 /* MapViewController.swift */; };
+		6DA29E7D2371747000F54743 /* lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E7A2371747000F54743 /* lock.mp3 */; };
+		6DA29E7E2371747000F54743 /* unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E7B2371747000F54743 /* unlock.mp3 */; };
+		6DA29E7F2371747000F54743 /* carAlertSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E7C2371747000F54743 /* carAlertSound.mp3 */; };
+		6DA29E812371772D00F54743 /* stop.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E802371772C00F54743 /* stop.json */; };
+		6DA29E83237178F300F54743 /* scan2.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E82237178F200F54743 /* scan2.json */; };
 		6DEFA85023702F74006FE48A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFA84F23702F74006FE48A /* HomeViewController.swift */; };
 		6DEFA8542370323B006FE48A /* bluecar.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DEFA8532370323B006FE48A /* bluecar.json */; };
 		8BA33A152ECD22B3A9EFAC26 /* Pods_OnboardingLottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56991DD74C2B0839FEDB499 /* Pods_OnboardingLottie.framework */; };
@@ -29,6 +48,25 @@
 		52A424AA1E4F98A0009A49D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52A424AD1E4F98A0009A49D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52A424AF1E4F98A0009A49D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DA29E5023703E6400F54743 /* padlock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = padlock.json; sourceTree = "<group>"; };
+		6DA29E562370418600F54743 /* bluelock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bluelock.json; sourceTree = "<group>"; };
+		6DA29E5823713E2300F54743 /* arrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = arrow.json; sourceTree = "<group>"; };
+		6DA29E5A237141C800F54743 /* radar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = radar.json; sourceTree = "<group>"; };
+		6DA29E5B237141C900F54743 /* bell.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bell.json; sourceTree = "<group>"; };
+		6DA29E5C237141C900F54743 /* card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = card.json; sourceTree = "<group>"; };
+		6DA29E622371485600F54743 /* CarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarViewController.swift; sourceTree = "<group>"; };
+		6DA29E6623715E9E00F54743 /* bright.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bright.json; sourceTree = "<group>"; };
+		6DA29E6723715E9E00F54743 /* dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dark.json; sourceTree = "<group>"; };
+		6DA29E6B237161AA00F54743 /* safe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = safe.json; sourceTree = "<group>"; };
+		6DA29E6D237161AA00F54743 /* caution.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = caution.json; sourceTree = "<group>"; };
+		6DA29E6E237161AB00F54743 /* done.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = done.json; sourceTree = "<group>"; };
+		6DA29E6F237161AB00F54743 /* tree.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tree.json; sourceTree = "<group>"; };
+		6DA29E7523716F4000F54743 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		6DA29E7A2371747000F54743 /* lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lock.mp3; sourceTree = "<group>"; };
+		6DA29E7B2371747000F54743 /* unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = unlock.mp3; sourceTree = "<group>"; };
+		6DA29E7C2371747000F54743 /* carAlertSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = carAlertSound.mp3; sourceTree = "<group>"; };
+		6DA29E802371772C00F54743 /* stop.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stop.json; sourceTree = "<group>"; };
+		6DA29E82237178F200F54743 /* scan2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scan2.json; sourceTree = "<group>"; };
 		6DEFA84F23702F74006FE48A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6DEFA8532370323B006FE48A /* bluecar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bluecar.json; sourceTree = "<group>"; };
 		81D1218BB5393C68AF808A24 /* Pods-OnboardingLottie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnboardingLottie.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnboardingLottie/Pods-OnboardingLottie.debug.xcconfig"; sourceTree = "<group>"; };
@@ -79,17 +117,52 @@
 			isa = PBXGroup;
 			children = (
 				5261D6B21E4FB39C009A4983 /* Walkthrough.aep */,
-				5261D6B01E4F9C16009A4983 /* tutorial.json */,
-				6DEFA8532370323B006FE48A /* bluecar.json */,
 				52A424A31E4F98A0009A49D4 /* AppDelegate.swift */,
-				52A424A51E4F98A0009A49D4 /* ViewController.swift */,
 				6DEFA84F23702F74006FE48A /* HomeViewController.swift */,
+				6DA29E622371485600F54743 /* CarViewController.swift */,
+				6DA29E7523716F4000F54743 /* MapViewController.swift */,
 				52A424A71E4F98A0009A49D4 /* Main.storyboard */,
-				52A424AA1E4F98A0009A49D4 /* Assets.xcassets */,
 				52A424AC1E4F98A0009A49D4 /* LaunchScreen.storyboard */,
 				52A424AF1E4F98A0009A49D4 /* Info.plist */,
+				52A424AA1E4F98A0009A49D4 /* Assets.xcassets */,
+				52A424A51E4F98A0009A49D4 /* ViewController.swift */,
+				6DA29E792371745C00F54743 /* Sound */,
+				6DA29E6A2371614A00F54743 /* LoffieFiles */,
 			);
 			path = OnboardingLottie;
+			sourceTree = "<group>";
+		};
+		6DA29E6A2371614A00F54743 /* LoffieFiles */ = {
+			isa = PBXGroup;
+			children = (
+				6DA29E82237178F200F54743 /* scan2.json */,
+				6DA29E802371772C00F54743 /* stop.json */,
+				6DA29E5023703E6400F54743 /* padlock.json */,
+				5261D6B01E4F9C16009A4983 /* tutorial.json */,
+				6DA29E5B237141C900F54743 /* bell.json */,
+				6DA29E6D237161AA00F54743 /* caution.json */,
+				6DA29E6E237161AB00F54743 /* done.json */,
+				6DA29E6B237161AA00F54743 /* safe.json */,
+				6DA29E6F237161AB00F54743 /* tree.json */,
+				6DA29E6623715E9E00F54743 /* bright.json */,
+				6DA29E6723715E9E00F54743 /* dark.json */,
+				6DA29E5C237141C900F54743 /* card.json */,
+				6DA29E5A237141C800F54743 /* radar.json */,
+				6DA29E562370418600F54743 /* bluelock.json */,
+				6DA29E5823713E2300F54743 /* arrow.json */,
+				6DEFA8532370323B006FE48A /* bluecar.json */,
+			);
+			path = LoffieFiles;
+			sourceTree = "<group>";
+		};
+		6DA29E792371745C00F54743 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				6DA29E7C2371747000F54743 /* carAlertSound.mp3 */,
+				6DA29E7A2371747000F54743 /* lock.mp3 */,
+				6DA29E7B2371747000F54743 /* unlock.mp3 */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		C4E23AE1ABDC39BD4DC8ADCF /* Frameworks */ = {
@@ -164,12 +237,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DA29E70237161AB00F54743 /* safe.json in Resources */,
+				6DA29E5D237141C900F54743 /* radar.json in Resources */,
+				6DA29E5E237141C900F54743 /* bell.json in Resources */,
 				5261D6B31E4FB39C009A4983 /* Walkthrough.aep in Resources */,
+				6DA29E5123703E6400F54743 /* padlock.json in Resources */,
+				6DA29E72237161AB00F54743 /* caution.json in Resources */,
 				52A424AE1E4F98A0009A49D4 /* LaunchScreen.storyboard in Resources */,
+				6DA29E73237161AB00F54743 /* done.json in Resources */,
 				5261D6B11E4F9C16009A4983 /* tutorial.json in Resources */,
 				52A424AB1E4F98A0009A49D4 /* Assets.xcassets in Resources */,
+				6DA29E5F237141C900F54743 /* card.json in Resources */,
+				6DA29E83237178F300F54743 /* scan2.json in Resources */,
 				6DEFA8542370323B006FE48A /* bluecar.json in Resources */,
+				6DA29E572370418600F54743 /* bluelock.json in Resources */,
 				52A424A91E4F98A0009A49D4 /* Main.storyboard in Resources */,
+				6DA29E5923713E2300F54743 /* arrow.json in Resources */,
+				6DA29E812371772D00F54743 /* stop.json in Resources */,
+				6DA29E7F2371747000F54743 /* carAlertSound.mp3 in Resources */,
+				6DA29E74237161AB00F54743 /* tree.json in Resources */,
+				6DA29E7E2371747000F54743 /* unlock.mp3 in Resources */,
+				6DA29E6923715E9E00F54743 /* dark.json in Resources */,
+				6DA29E7D2371747000F54743 /* lock.mp3 in Resources */,
+				6DA29E6823715E9E00F54743 /* bright.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +321,8 @@
 				52A424A61E4F98A0009A49D4 /* ViewController.swift in Sources */,
 				52A424A41E4F98A0009A49D4 /* AppDelegate.swift in Sources */,
 				6DEFA85023702F74006FE48A /* HomeViewController.swift in Sources */,
+				6DA29E7623716F4000F54743 /* MapViewController.swift in Sources */,
+				6DA29E632371485600F54743 /* CarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
