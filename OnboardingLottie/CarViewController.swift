@@ -16,30 +16,41 @@ class CarViewController: UIViewController {
     @IBOutlet weak var speedImgBg: UIImageView!
     @IBOutlet weak var tempImgBg: UIImageView!
     
+    var imageView = UIImageView()
+    
     var animationView = LAAnimationView.animationNamed("")
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadLottie(fileName: "radar", x: 124, y: 40, width: 170, height: 500, loopStatus: true, enableTouch: false)
-        loadLottie(fileName: "dark", x: 50, y: 700, width: 100, height: 100, loopStatus: true, enableTouch: false)
-        loadLottie(fileName: "caution", x: 160, y: 70, width: 100, height: 100, loopStatus: true, enableTouch: false)
-        loadLottie(fileName: "stop", x: 160, y: 70, width: 100, height: 100, loopStatus: true, enableTouch: false)
+        
         //loadLottie(fileName: "bright", x: 0, y: 500, width: self.view.frame.size.width, height: 300, loopStatus: true, enableTouch: false)
+        
+        //initializeAnimations()
         addCarImage()
+        UIView.animate(withDuration: 10, animations: {
+            //self.imageView.transform = CGAffineTransform(translationX: 0, y: 400)
+        })
 //        addBlurEffect(iv: speedTopBG, x: 0, y: 185)
 //        addBlurEffect(iv: tempTopBg, x: 300, y: 185)
 //        addBlurEffect(iv: speedImgBg)
 //        addBlurEffect(iv: speedTopBG)
     }
+    
+    func initializeAnimations() {
+        loadLottie(fileName: "radar", x: 124, y: 40, width: 170, height: 500, loopStatus: true, enableTouch: false, magnitude: 3)
+        loadLottie(fileName: "dark", x: 50, y: 700, width: 100, height: 100, loopStatus: true, enableTouch: false, magnitude: -5)
+        loadLottie(fileName: "caution", x: 160, y: 70, width: 100, height: 100, loopStatus: true, enableTouch: false, magnitude: 0)
+        loadLottie(fileName: "stop", x: 160, y: 70, width: 100, height: 100, loopStatus: true, enableTouch: false, magnitude: 0)
+    }
 
     func addCarImage()
     {
-        var imageView : UIImageView
         imageView  = UIImageView(frame:CGRect(x: 110, y: 230, width: 200, height: 400));
         imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(named:"cartopview")
         self.view.addSubview(imageView)
+        
     }
     
     func applyMotionEffect (toView view:LAAnimationView, magnitude:Float) {
@@ -70,7 +81,7 @@ class CarViewController: UIViewController {
         }
     }
     
-    func loadLottie(fileName: String, x: Int, y: Int, width: CGFloat, height: CGFloat, loopStatus: Bool, enableTouch: Bool)
+    func loadLottie(fileName: String, x: Int, y: Int, width: CGFloat, height: CGFloat, loopStatus: Bool, enableTouch: Bool, magnitude: Float)
         {
             animationView = LAAnimationView.animationNamed(fileName)
             animationView?.frame = CGRect(x: x, y: y, width: Int(width), height: Int(height))
@@ -80,7 +91,7 @@ class CarViewController: UIViewController {
             animationView?.loopAnimation = loopStatus
             self.view.addSubview(animationView!)
             animationView?.play()
-            applyMotionEffect(toView: animationView!, magnitude: 50)
+            applyMotionEffect(toView: animationView!, magnitude: magnitude)
             
             
     //        animationView?.play(fromFrame: 0, toFrame: 66)
