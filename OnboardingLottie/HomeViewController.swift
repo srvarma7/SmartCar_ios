@@ -16,11 +16,12 @@ import LocalAuthentication
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var lockStatusLabel: UILabel!
-    
     @IBOutlet weak var carAddress: UILabel!
     @IBOutlet weak var userProfilePic: UIImageView!
     @IBOutlet weak var userStatus: UILabel!
     @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var blackBg: UIImageView!
+    @IBOutlet weak var popBtn: UIButton!
     
     var lockStatus: Bool = true
     var userLogin: Bool = false
@@ -32,17 +33,31 @@ class HomeViewController: UIViewController {
     var imageView = UIImageView()
     var animationView = LAAnimationView.animationNamed("")
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        startAnimations()
-        enableImageTapping()
-        applyMotionEffect(toView: userProfilePic, magnitude: -15)
+        animation(y: -330)
+        self.startAnimations()
+        self.enableImageTapping()
+        self.applyMotionEffect(toView: self.userProfilePic, magnitude: -15)
         
-//        //testing
-//
-//        loadLottie(fileName: "card", x: 0, y: 300, width: self.view.frame.size.width, height: 100, loopStatus: false, enableTouch: true)
-//        loadLottie(fileName: "radar", x: 0, y: 300, width: self.view.frame.size.width, height: 100, loopStatus: false, enableTouch: true)
+    }
+    
+    func animation(y: CGFloat) {
+        let seconds = 2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            // Put your code which should be executed with a delay here
+            UIView.animate(withDuration: 3, animations: {
+                self.userStatus.transform = CGAffineTransform(translationX: 0, y: y)
+                self.userName.transform = CGAffineTransform(translationX: 0, y: y)
+                self.userProfilePic.transform = CGAffineTransform(translationX: 0, y: y)
+                self.blackBg.transform = CGAffineTransform(translationX: 0, y: y)
+                self.blackBg.layer.cornerRadius = (self.blackBg.frame.size.width)/10
+                self.blackBg.clipsToBounds = true
+                
+            })
+        }
+        
     }
     
     func enableImageTapping() {
@@ -107,11 +122,11 @@ class HomeViewController: UIViewController {
         
         //Notification bell
         loadLottie(fileName: "bell", x: 340, y: 50, width: 30, height: 30, loopStatus: false, enableTouch: true, magnitude: -10)
-        //Moving car
-        loadLottie(fileName: "bluecar", x: 0, y: 300, width: self.view.frame.size.width, height: 100, loopStatus: false, enableTouch: true, magnitude: 15)
         //location arrow
         loadLottie(fileName: "arrow", x: Int(self.view.bounds.midX-85), y: Int(self.view.bounds.midY-57), width: 60, height: 60, loopStatus: true, enableTouch: false, magnitude: -5)
         loadLottie(fileName: "radar", x: 124, y: 60, width: 170, height: 170, loopStatus: false, enableTouch: false, magnitude: -10)
+        //Moving car
+        loadLottie(fileName: "bluecar", x: 0, y: 300, width: self.view.frame.size.width, height: 100, loopStatus: false, enableTouch: true, magnitude: 15)
         //tempLabelMenu.transform = CGAffineTransform(rotationAngle: -3.14/2)
         //Lock and Unlock button
         
@@ -175,7 +190,21 @@ class HomeViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    var b: Bool = false
 
+    @IBAction func btn(_ sender: Any) {
+        if b {
+            animationView?.loopAnimation = true
+            animationView?.play()
+            b.toggle()
+        }
+        else {
+            animationView?.pause()
+            b.toggle()
+        }
+        
+    }
     func FaceId()
     {
         var error: NSError?

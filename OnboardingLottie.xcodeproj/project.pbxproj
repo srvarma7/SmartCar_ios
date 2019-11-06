@@ -39,6 +39,8 @@
 		6DA29E8B2371D24100F54743 /* caution.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E872371D24100F54743 /* caution.mp3 */; };
 		6DA29E8D2371DE4200F54743 /* inside.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DA29E8C2371DE4100F54743 /* inside.mp3 */; };
 		6DA29E8F2371E43800F54743 /* SpeedParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA29E8E2371E43800F54743 /* SpeedParsing.swift */; };
+		6DA29E912371ED0200F54743 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA29E902371ED0100F54743 /* ProfileViewController.swift */; };
+		6DA29E932372D55100F54743 /* PopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA29E922372D55100F54743 /* PopViewController.swift */; };
 		6DEFA85023702F74006FE48A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFA84F23702F74006FE48A /* HomeViewController.swift */; };
 		6DEFA8542370323B006FE48A /* bluecar.json in Resources */ = {isa = PBXBuildFile; fileRef = 6DEFA8532370323B006FE48A /* bluecar.json */; };
 		8BA33A152ECD22B3A9EFAC26 /* Pods_OnboardingLottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56991DD74C2B0839FEDB499 /* Pods_OnboardingLottie.framework */; };
@@ -79,6 +81,8 @@
 		6DA29E872371D24100F54743 /* caution.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = caution.mp3; sourceTree = "<group>"; };
 		6DA29E8C2371DE4100F54743 /* inside.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = inside.mp3; sourceTree = "<group>"; };
 		6DA29E8E2371E43800F54743 /* SpeedParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedParsing.swift; sourceTree = "<group>"; };
+		6DA29E902371ED0100F54743 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		6DA29E922372D55100F54743 /* PopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopViewController.swift; sourceTree = "<group>"; };
 		6DEFA84F23702F74006FE48A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6DEFA8532370323B006FE48A /* bluecar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bluecar.json; sourceTree = "<group>"; };
 		81D1218BB5393C68AF808A24 /* Pods-OnboardingLottie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnboardingLottie.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OnboardingLottie/Pods-OnboardingLottie.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,9 +135,11 @@
 				5261D6B21E4FB39C009A4983 /* Walkthrough.aep */,
 				52A424A31E4F98A0009A49D4 /* AppDelegate.swift */,
 				6DEFA84F23702F74006FE48A /* HomeViewController.swift */,
-				6DA29E8E2371E43800F54743 /* SpeedParsing.swift */,
 				6DA29E622371485600F54743 /* CarViewController.swift */,
 				6DA29E7523716F4000F54743 /* MapViewController.swift */,
+				6DA29E902371ED0100F54743 /* ProfileViewController.swift */,
+				6DA29E922372D55100F54743 /* PopViewController.swift */,
+				6DA29E8E2371E43800F54743 /* SpeedParsing.swift */,
 				52A424A71E4F98A0009A49D4 /* Main.storyboard */,
 				52A424AC1E4F98A0009A49D4 /* LaunchScreen.storyboard */,
 				52A424AF1E4F98A0009A49D4 /* Info.plist */,
@@ -341,10 +347,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DA29E932372D55100F54743 /* PopViewController.swift in Sources */,
 				6DA29E8F2371E43800F54743 /* SpeedParsing.swift in Sources */,
 				52A424A61E4F98A0009A49D4 /* ViewController.swift in Sources */,
 				52A424A41E4F98A0009A49D4 /* AppDelegate.swift in Sources */,
 				6DEFA85023702F74006FE48A /* HomeViewController.swift in Sources */,
+				6DA29E912371ED0200F54743 /* ProfileViewController.swift in Sources */,
 				6DA29E7623716F4000F54743 /* MapViewController.swift in Sources */,
 				6DA29E632371485600F54743 /* CarViewController.swift in Sources */,
 			);

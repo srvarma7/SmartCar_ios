@@ -14,6 +14,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     var speed: String!
 
+    @IBOutlet weak var speedHeading: UILabel!
+    @IBOutlet weak var LimitHeading: UILabel!
+    @IBOutlet weak var currentHeading: UILabel!
     //speedLimitLabel
     @IBOutlet weak var speedLimitLabel: UILabel!
     //mapView
@@ -22,10 +25,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var userSpeedImg: UIImageView!
     //speedLimitImg
     @IBOutlet weak var speedLimitImg: UIImageView!
-    
+    @IBOutlet weak var currentSpeedLabel: UILabel!
     //speedLimitBgImage
     @IBOutlet weak var speedLimitAndLabelBg: UIImageView!
-    @IBOutlet weak var speedLimitBgImage: UILabel!
+    @IBOutlet weak var streetLabel: UILabel!
     
     
     
@@ -57,25 +60,38 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func createSpeedCircles()
     {
-        UIView.animate(withDuration: 1, animations: {
-            self.userSpeedImg.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            self.userSpeedImg.layer.cornerRadius = (self.userSpeedImg.frame.size.width)/2
-            self.userSpeedImg.layer.borderWidth = 10
-            self.userSpeedImg.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-            self.userSpeedImg.clipsToBounds = true
-            self.speedLimitImg.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            self.speedLimitImg.layer.cornerRadius = (self.speedLimitImg.frame.size.width)/2
-            self.speedLimitImg.layer.borderWidth = 7
-            self.speedLimitImg.layer.borderColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
-            self.speedLimitImg.clipsToBounds = true
-        })
-        UIView.animate(withDuration: 1, animations: {
-            //self.speedLimitBgImage.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            self.speedLimitAndLabelBg.layer.cornerRadius = (self.speedLimitAndLabelBg.frame.size.width)/10
-            self.speedLimitAndLabelBg.layer.borderWidth = 2
-            self.speedLimitAndLabelBg.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-            self.speedLimitAndLabelBg.clipsToBounds = true
-        })
+        let y: CGFloat = -95
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            UIView.animate(withDuration: 2, animations: {
+                self.speedLimitAndLabelBg.transform = CGAffineTransform(translationX: 0, y: y)
+                self.speedHeading.transform = CGAffineTransform(translationX: 0, y: y)
+                self.LimitHeading.transform = CGAffineTransform(translationX: 0, y: y)
+                self.currentHeading.transform = CGAffineTransform(translationX: 0, y: y)
+                self.speedLimitLabel.transform = CGAffineTransform(translationX: 0, y: y)
+                self.streetLabel.transform = CGAffineTransform(translationX: 0, y: y)
+                self.currentSpeedLabel.transform = CGAffineTransform(translationX: 0, y: y)
+                self.userSpeedImg.transform = CGAffineTransform(translationX: 0, y: y)
+                self.speedLimitImg.transform = CGAffineTransform(translationX: 0, y: y)
+                self.userSpeedImg.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                self.userSpeedImg.layer.cornerRadius = (self.userSpeedImg.frame.size.width)/2
+                self.userSpeedImg.layer.borderWidth = 7
+                self.userSpeedImg.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+                self.userSpeedImg.clipsToBounds = true
+                self.speedLimitImg.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                self.speedLimitImg.layer.cornerRadius = (self.speedLimitImg.frame.size.width)/2
+                self.speedLimitImg.layer.borderWidth = 7
+                self.speedLimitImg.layer.borderColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+                self.speedLimitImg.clipsToBounds = true
+            })
+            UIView.animate(withDuration: 1, animations: {
+                //self.speedLimitBgImage.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                
+                self.speedLimitAndLabelBg.layer.cornerRadius = (self.speedLimitAndLabelBg.frame.size.width)/10
+                self.speedLimitAndLabelBg.layer.borderWidth = 2
+                self.speedLimitAndLabelBg.layer.borderColor = #colorLiteral(red: 0.1606533527, green: 0.1661810279, blue: 0.1873781979, alpha: 1)
+                self.speedLimitAndLabelBg.clipsToBounds = true
+            })
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading)
