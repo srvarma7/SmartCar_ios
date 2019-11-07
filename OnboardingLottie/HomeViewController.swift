@@ -13,7 +13,7 @@ import LocalAuthentication
 
 //created new class for parsing speed
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, DatabaseListener {
     
     @IBOutlet weak var lockStatusLabel: UILabel!
     @IBOutlet weak var carAddress: UILabel!
@@ -33,6 +33,10 @@ class HomeViewController: UIViewController {
     var imageView = UIImageView()
     var animationView = LAAnimationView.animationNamed("")
     
+    weak var databaseController: DatabaseProtocol?
+    var dataList: [Sensor] = [Sensor]()
+
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,29 @@ class HomeViewController: UIViewController {
         self.enableImageTapping()
         self.applyMotionEffect(toView: self.userProfilePic, magnitude: -15)
         
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate!.databaseController
+    }
+    
+    var listenerType = ListenerType.data
+
+    func onDataListChange(change: DatabaseChange, dataList: [Sensor]) {
+        self.dataList = dataList
+        if(!dataList.isEmpty){
+            //updateCarLocation(latitude: dataList[0].gps.curLat, longitude: dataList[0].gps.curLong)
+            self.userName.text = dataList[0].rfid.name
+            isCarMoving()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        databaseController?.addListener(listener: self)
+    }
+       
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        databaseController?.removeListener(listener: self)
     }
     
     func animation(y: CGFloat) {
@@ -228,7 +255,59 @@ class HomeViewController: UIViewController {
             }
         
         }
+    }
+    
+    func updatecarLocation(latitude: Double, longitude: Double)
+    {
+        let lat = String(format: "%f", latitude)
+        let lon = String(format: "%f", longitude)
+        
+        let url = URL(string: "https://reverse.geocoder.api.here.com/6.2/reversegeocode.json?prox=" + lat + "," + lon + ",50&mode=retrieveAddresses&locationAttributes=linkInfo&gen=9&app_id=bGsxRlcLJl9jlkPw8llT&app_code=P61HIba-X4DxDhv2SypcFg")
+        
+        URLSession.shared.dataTask(with: url!) { data, _, _ in
+            if let data = data {
+                let resp = try? JSONDecoder().decode(JsonResponse.self, from: data)
+                print("Location retrieved")
+                DispatchQueue.main.async {
+                    if((resp!.Response.View.first?.Result.first?.Location.Address.Street!.isEmpty)!){
+                        self.carAddress.text = resp!.Response.View.first?.Result.first?.Location.Address.District
+                    }
+                    else{
+                        print(resp!.Response.View.first?.Result.first?.Location.Address.Street)
+                        self.carAddress.text = resp!.Response.View.first?.Result.first?.Location.Address.Street
+                    }
+                }
+            }
+        }.resume()
+    }
+    
+    func isCarMoving(){
+        
+        if(dataList.count >= 2){
+            
+            let accelX1 = dataList[0].gyro.accelX
+            let accelY1 = dataList[0].gyro.accelY
+            let accelZ1 = dataList[0].gyro.accelZ
+            let totalAccel1 = ((accelX1 * accelX1) + (accelY1 * accelY1) + (accelZ1 * accelZ1)).squareRoot()
+            
+            let accelX2 = dataList[1].gyro.accelX
+            let accelY2 = dataList[1].gyro.accelY
+            let accelZ2 = dataList[1].gyro.accelZ
+            let totalAccel2 = ((accelX2 * accelX2) + (accelY2 * accelY2) + (accelZ2 * accelZ2)).squareRoot()
+            
+            let totalAccel: Double = totalAccel1 - totalAccel2
+            
+            if(totalAccel >= 2 || totalAccel <= -2)
+            {
+                animationView?.loopAnimation = true
+                animationView?.play()
+            }
+            else{
+                animationView?.pause()
+            }
+        }
         
         
     }
+    
 }

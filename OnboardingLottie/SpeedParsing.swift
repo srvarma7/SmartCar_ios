@@ -24,6 +24,12 @@ struct ResultData: Codable {
 
 struct LocationData: Codable{
     let LinkInfo: LinkInfo
+    let Address: Address
+}
+
+struct Address: Codable{
+    let District: String
+    let Street: String?
 }
 
 struct LinkInfo: Codable{

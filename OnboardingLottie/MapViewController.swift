@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, DatabaseListener {
     
     var speed: String!
 
@@ -31,7 +31,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var streetLabel: UILabel!
     
     
-    
+    weak var databaseController: DatabaseProtocol?
+    var dataList: [Sensor] = [Sensor]()
+
     
     var locationMgr: CLLocationManager = CLLocationManager()
     //If location is not determined, then map foucs towards city
@@ -39,10 +41,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate!.databaseController
         createSpeedCircles()
         mapKitInitializers()
         
+    }
+    
+    var listenerType = ListenerType.data
+
+    func onDataListChange(change: DatabaseChange, dataList: [Sensor]) {
+        self.dataList = dataList
+        //updateSppedLimit(latitude: dataList[0].gps.curLat, longitude: dataList[0].gps.curLong)
+        calculateSpeed(data: dataList)
+        focusLocation = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: dataList[0].gps.curLat, longitude: dataList[0].gps.curLong), 50, 50)
+        let cam = MKMapCamera()
+        cam.centerCoordinate = CLLocationCoordinate2D(latitude: dataList[0].gps.curLat, longitude: dataList[0].gps.curLong)
+        cam.pitch = 80
+        cam.altitude = 100
+        cam.heading = 0
+        mapView.setRegion(focusLocation, animated: true)
+        mapView.setCamera(cam, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        databaseController?.addListener(listener: self)
+    }
+       
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        databaseController?.removeListener(listener: self)
     }
     
     func mapKitInitializers() {
@@ -101,27 +130,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     //Updates location coordinates
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let location: CLLocation = locations.last!
-        
-        //updateSppedLimit(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
-        focusLocation = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), 50, 50)
-        let cam = MKMapCamera()
-        cam.centerCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        cam.pitch = 80
-        cam.altitude = 100
-        cam.heading = 0
-        mapView.setRegion(focusLocation, animated: true)
-        mapView.setCamera(cam, animated: true)
-//        UIView.animate(withDuration: 1, animations: {
-//            //self.speedLimitLabel.text = self.speed
-//            self.speedLimitLabel.transform = CGAffineTransform(translationX: +7, y: 0)
-//        })
-        
-        
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//
+//        let location: CLLocation = locations.last!
+//
+//        //updateSppedLimit(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//
+//        focusLocation = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), 50, 50)
+//        let cam = MKMapCamera()
+//        cam.centerCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//        cam.pitch = 80
+//        cam.altitude = 100
+//        cam.heading = 0
+//        mapView.setRegion(focusLocation, animated: true)
+//        mapView.setCamera(cam, animated: true)
+////        UIView.animate(withDuration: 1, animations: {
+////            //self.speedLimitLabel.text = self.speed
+////            self.speedLimitLabel.transform = CGAffineTransform(translationX: +7, y: 0)
+////        })
+//
+//
+//    }
     
     func updateSppedLimit(latitude: Double, longitude: Double)
     {
@@ -134,47 +163,52 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if let data = data {
                 let resp = try? JSONDecoder().decode(JsonResponse.self, from: data)
                 self.speed = (resp?.Response.View.first?.Result.first?.Location.LinkInfo.SpeedCategory)!
+                print(resp)
                 print(self.speed!)
                 print("Speed retrieved")
+                DispatchQueue.main.async {
+                    self.displaySpeedLimit()
+                    self.setStreetLabel(resp: resp!)
+                }
             }
         }.resume()
         
-        if speed == "SC1"{
-            print(">130")
-            speedLimitLabel.text = ">130"
-        }
-        else if speed == "SC2"{
-            print("130")
-            speedLimitLabel.text = "130"
-        }
-        else if speed == "SC3"{
-            print("100")
-            speedLimitLabel.text = "100"
-        }
-        else if speed == "SC4"{
-            print("90")
-            speedLimitLabel.text = "90"
-            UIView.animate(withDuration: 1, animations: {
-                self.speedLimitLabel.text = "90"
-                self.speedLimitLabel.transform = CGAffineTransform(translationX: +7, y: 0)
-            })
-        }
-        else if speed == "SC5"{
-            print("70")
-            speedLimitLabel.text = "70"
-        }
-        else if speed == "SC6"{
-            print("50")
-            speedLimitLabel.text = "50"
-        }
-        else if speed == "SC7"{
-            print("30")
-            speedLimitLabel.text = "30"
-        }
-        else if speed == "SC8"{
-            print("<11")
-            speedLimitLabel.text = "<11"
-        }
+//        if speed == "SC1"{
+//            print(">130")
+//            speedLimitLabel.text = ">130"
+//        }
+//        else if speed == "SC2"{
+//            print("130")
+//            speedLimitLabel.text = "130"
+//        }
+//        else if speed == "SC3"{
+//            print("100")
+//            speedLimitLabel.text = "100"
+//        }
+//        else if speed == "SC4"{
+//            print("90")
+//            speedLimitLabel.text = "90"
+//            UIView.animate(withDuration: 1, animations: {
+//                self.speedLimitLabel.text = "90"
+//                self.speedLimitLabel.transform = CGAffineTransform(translationX: +7, y: 0)
+//            })
+//        }
+//        else if speed == "SC5"{
+//            print("70")
+//            speedLimitLabel.text = "70"
+//        }
+//        else if speed == "SC6"{
+//            print("50")
+//            speedLimitLabel.text = "50"
+//        }
+//        else if speed == "SC7"{
+//            print("30")
+//            speedLimitLabel.text = "30"
+//        }
+//        else if speed == "SC8"{
+//            print("<11")
+//            speedLimitLabel.text = "<11"
+//        }
     }
     
     func displaySpeedLimit() {
@@ -212,6 +246,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    func setStreetLabel(resp: JsonResponse){
+        if((resp.Response.View.first?.Result.first?.Location.Address.Street!.isEmpty)!){
+            self.streetLabel.text = resp.Response.View.first?.Result.first?.Location.Address.District
+        }
+        else{
+            print(resp.Response.View.first?.Result.first?.Location.Address.Street!)
+            self.streetLabel.text = resp.Response.View.first?.Result.first?.Location.Address.Street
+        }
+    }
+    
+    func calculateSpeed(data: [Sensor])
+    {
+        if(data[0].gps.prevLat == 0 )
+        {
+            return
+        }
+        else
+        {
+            let coordinate1 = CLLocation(latitude: data[0].gps.curLat, longitude: data[0].gps.curLong)
+            let coordinate2 = CLLocation(latitude: data[0].gps.prevLat, longitude: data[0].gps.prevLong)
+
+            let distanceInMeters = coordinate1.distance(from: coordinate2)
+            let timeDiff = data[0].gps.curTime - data[0].gps.prevTime
+            let speedKph: Int = Int((Double(distanceInMeters) / Double(timeDiff)) * ( 3.6 ))
+            self.currentSpeedLabel.text = String(speedKph)
+            
+            
+        }
+        
+    }
     
 }
 
