@@ -27,6 +27,9 @@ class HomeViewController: UIViewController, DatabaseListener {
     var userLogin: Bool = false
     var context = LAContext()
     var error: NSError?
+    var speed: String?
+    var district: String?
+    var street: String?
     
     var soundAlert = Bundle.main.path(forResource: "", ofType: "mp3")
     var audioPlayer: AVAudioPlayer!
@@ -55,7 +58,11 @@ class HomeViewController: UIViewController, DatabaseListener {
         self.dataList = dataList
         if(!dataList.isEmpty){
             //updateCarLocation(latitude: dataList[0].gps.curLat, longitude: dataList[0].gps.curLong)
-            self.userName.text = dataList[0].rfid.name
+            if(dataList[0].rfid.tag != 0)
+            {
+                self.userName.text = dataList[0].rfid.name
+                performSegue(withIdentifier: "popRfidSegue", sender: self)
+            }
             isCarMoving()
         }
     }
@@ -112,7 +119,7 @@ class HomeViewController: UIViewController, DatabaseListener {
             if userLogin {
                 if #available(iOS 13.0, *) {
                     UIView.animate(withDuration: 1, animations: {
-                        sender.setBackgroundImage(UIImage(systemName: "lock.open"), for: .normal)
+                        sender.setBackgroundImage(UIImage(named: "lock.open"), for: .normal)
                         self.lockStatus.toggle()
                         self.playSound(name: "unlock")
                         self.lockStatusLabel.text = "Unlocked"
@@ -127,7 +134,7 @@ class HomeViewController: UIViewController, DatabaseListener {
         else {
             if #available(iOS 13.0, *) {
                 UIView.animate(withDuration: 1, animations: {
-                    sender.setBackgroundImage(UIImage(systemName: "lock"), for: .normal)
+                    sender.setBackgroundImage(UIImage(named: "lock"), for: .normal)
                     self.lockStatus.toggle()
                     self.playSound(name: "lock")
                     self.lockStatusLabel.text = " Locked "
@@ -257,7 +264,7 @@ class HomeViewController: UIViewController, DatabaseListener {
         }
     }
     
-    func updatecarLocation(latitude: Double, longitude: Double)
+    func updateCarLocation(latitude: Double, longitude: Double)
     {
         let lat = String(format: "%f", latitude)
         let lon = String(format: "%f", longitude)
@@ -270,12 +277,16 @@ class HomeViewController: UIViewController, DatabaseListener {
                 print("Location retrieved")
                 DispatchQueue.main.async {
                     if((resp!.Response.View.first?.Result.first?.Location.Address.Street!.isEmpty)!){
-                        self.carAddress.text = resp!.Response.View.first?.Result.first?.Location.Address.District
+                        self.district = resp!.Response.View.first?.Result.first?.Location.Address.District
+                        self.street = ""
                     }
                     else{
                         print(resp!.Response.View.first?.Result.first?.Location.Address.Street)
-                        self.carAddress.text = resp!.Response.View.first?.Result.first?.Location.Address.Street
+                        self.district = resp!.Response.View.first?.Result.first?.Location.Address.District
+                        self.street = resp!.Response.View.first?.Result.first?.Location.Address.Street
                     }
+                    let address = "\(self.street) \(self.district)"
+                    self.carAddress.text = address as! String
                 }
             }
         }.resume()
@@ -296,8 +307,7 @@ class HomeViewController: UIViewController, DatabaseListener {
             let totalAccel2 = ((accelX2 * accelX2) + (accelY2 * accelY2) + (accelZ2 * accelZ2)).squareRoot()
             
             let totalAccel: Double = totalAccel1 - totalAccel2
-            
-            if(totalAccel >= 2 || totalAccel <= -2)
+            if(totalAccel >= 0.5 || totalAccel <= -0.5)
             {
                 animationView?.loopAnimation = true
                 animationView?.play()
@@ -309,5 +319,6 @@ class HomeViewController: UIViewController, DatabaseListener {
         
         
     }
+    
     
 }

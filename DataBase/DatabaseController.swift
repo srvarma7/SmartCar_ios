@@ -80,7 +80,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         dataList = [Sensor]()
         dataList.append(tempList[0])
         dataList.append(tempList[1])
-        
+        print(tempList[0].timestamp)
+        print(tempList[1].timestamp)
+
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.data || listener.listenerType == ListenerType.all {
                 listener.onDataListChange(change: .update, dataList: dataList)

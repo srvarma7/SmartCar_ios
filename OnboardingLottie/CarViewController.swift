@@ -11,8 +11,9 @@
 
 import UIKit
 import Lottie
+import CoreLocation
 
-class CarViewController: UIViewController {
+class CarViewController: UIViewController, DatabaseListener {
 
     @IBOutlet weak var speedTopBG: UIImageView!
     @IBOutlet weak var tempTopBg: UIImageView!
@@ -37,6 +38,10 @@ class CarViewController: UIViewController {
     @IBOutlet weak var distanceNumberLabel: UILabel!
     
     var imageView = UIImageView()
+    
+    weak var databaseController: DatabaseProtocol?
+    var dataList: [Sensor] = [Sensor]()
+
     
     var animationView = LAAnimationView.animationNamed("")
     
@@ -64,6 +69,49 @@ class CarViewController: UIViewController {
 //        addBlurEffect(iv: tempTopBg, x: 300, y: 185)
 //        addBlurEffect(iv: speedImgBg)
 //        addBlurEffect(iv: speedTopBG)
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate!.databaseController
+    }
+    
+    var listenerType = ListenerType.data
+    
+    func onDataListChange(change: DatabaseChange, dataList: [Sensor]) {
+        self.dataList = dataList
+        if(dataList.count >= 2)
+        {
+            self.tempOutNumLabel.text = String(dataList[0].temp.outside)
+            self.insideTempNumLabel.text = String(dataList[0].temp.inside)
+            print(String(Int(dataList[0].ultrasonic.distance)) + "cm")
+            //updateSppedLimit(latitude: dataList[0].gps.curLat, longitude: dataList[0].gps.curLong)
+            calculateSpeed(data: dataList)
+            if(dataList[0].ultrasonic.distance > 1000)
+            {
+                self.distanceNumberLabel.text = "Clear"
+            }
+            else
+            {
+                self.distanceNumberLabel.text = String(Int(dataList[0].ultrasonic.distance)) + "cm"
+                if (dataList[0].ultrasonic.distance < 100)
+                {
+                    loadAnimations(name: "caution")
+                }
+                else if (dataList[0].ultrasonic.distance < 200)
+                {
+                    loadAnimations(name: "safe")
+                }
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        databaseController?.addListener(listener: self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        databaseController?.removeListener(listener: self)
     }
     
     func startAnimation() {
@@ -112,8 +160,8 @@ class CarViewController: UIViewController {
         }
     }
     
-    func initializeAnimations() {
-//        loadLottie(fileName: "dark", x: 50, y: 700, width: 100, height: 100, loopStatus: true, enableTouch: false, magnitude: -5)
+    func loadAnimations(name: String) {
+        loadLottie(fileName: name, x: 50, y: 700, width: 100, height: 100, loopStatus: true, enableTouch: false, magnitude: -5, play: true)
 //        loadLottie(fileName: "caution", x: 160, y: 70, width: 100, height: 100, loopStatus: true, enableTouch: false, magnitude: 0)
 //        loadLottie(fileName: "stop", x: 160, y: 70, width: 100, height: 100, loopStatus: true, enableTouch: false, magnitude: 0)
     }
@@ -188,8 +236,87 @@ class CarViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func updateSppedLimit(latitude: Double, longitude: Double)
+    {
+        let lat = String(format: "%f", latitude)
+        let lon = String(format: "%f", longitude)
+        
+        let url = URL(string: "https://reverse.geocoder.api.here.com/6.2/reversegeocode.json?prox=" + lat + "," + lon + ",50&mode=retrieveAddresses&locationAttributes=linkInfo&gen=9&app_id=bGsxRlcLJl9jlkPw8llT&app_code=P61HIba-X4DxDhv2SypcFg")
+        
+        URLSession.shared.dataTask(with: url!) { data, _, _ in
+            if let data = data {
+                let resp = try? JSONDecoder().decode(JsonResponse.self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.displaySpeedLimit(speed: (resp?.Response.View.first?.Result.first?.Location.LinkInfo.SpeedCategory)!)    
+                }
+            }
+            }.resume()
+    }
+    
+    func displaySpeedLimit(speed: String) {
+        if speed == "SC1"{
+            print(">130")
+            self.maxSpeedNumberLabel.text = ">130"
+        }
+        else if speed == "SC2"{
+            print("130")
+            self.maxSpeedNumberLabel.text = "130"
+        }
+        else if speed == "SC3"{
+            print("100")
+            self.maxSpeedNumberLabel.text = "100"
+        }
+        else if speed == "SC4"{
+            print("90")
+            self.maxSpeedNumberLabel.text = "90"
+        }
+        else if speed == "SC5"{
+            print("70")
+            self.maxSpeedNumberLabel.text = "70"
+        }
+        else if speed == "SC6"{
+            print("50")
+            self.maxSpeedNumberLabel.text = "50"
+        }
+        else if speed == "SC7"{
+            print("30")
+            self.maxSpeedNumberLabel.text = "30"
+        }
+        else if speed == "SC8"{
+            print("<11")
+            self.maxSpeedNumberLabel.text = "10"
+        }
+    }
+    
+    func calculateSpeed(data: [Sensor])
+    {
+        if(data[0].gps.prevLat == 0 )
+        {
+            return
+        }
+        else
+        {
+            let coordinate1 = CLLocation(latitude: data[0].gps.curLat, longitude: data[0].gps.curLong)
+            let coordinate2 = CLLocation(latitude: data[0].gps.prevLat, longitude: data[0].gps.prevLong)
+            
+            let distanceInMeters = coordinate1.distance(from: coordinate2)
+            let timeDiff = data[0].gps.curTime - data[0].gps.prevTime
+            let speedKph: Int = Int((Double(distanceInMeters) / Double(timeDiff)) * ( 3.6 ))
+            self.currentSpeedNumberLabel.text = String(speedKph)
+            
+            
+        }
+        
+    }
+    
     @IBAction func carTopButton(_ sender: Any) {
          _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
+    
+    @IBAction func cancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
 }

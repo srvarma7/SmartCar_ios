@@ -242,7 +242,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         else if speed == "SC8"{
             print("<11")
-            speedLimitLabel.text = "<11"
+            speedLimitLabel.text = "10"
         }
     }
     

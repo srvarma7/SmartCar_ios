@@ -46,7 +46,7 @@ struct rfid: Codable{
 }
 
 struct light: Codable{
-    let lux: Int
+    let lux: Double
 }
 
 struct ultrasonic: Codable{
