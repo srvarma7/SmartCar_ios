@@ -3,6 +3,8 @@
 ### iCar is a smart iOS application, connects to cloud to retrive the real-time data that is posted using Raspberry Pi. 
 #### Multiple sensors are used to get temperature, light conditions, collision alerts, current driver info, driving speed, speed-limits, location, lock/unlock status, find directions to car's location and more.
 
+**Note** - Link to the app is not provided. Since, it’s an IoT project, to see all the features in action the Raspberry should be up and running with all the sensors connected to it. Please use the following examples as demo.
+
 - **Home screen** 
   - Beautiful landing page
   - Displays car loaction status 
